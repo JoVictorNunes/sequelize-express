@@ -6,7 +6,7 @@ const { Customer, Phone, Car } = sequelize.models;
 
 const { CreateCustomerRequestValidator, CustomerValidator } = require("../middlewares");
 const { idValidator } = require("../../../shared/middlewares");
-const { duplicatedEntry } = require("../../../../util/errorMessages");
+const { duplicatedEntryMessage } = require("../../../../util/errorMessages");
 
 router.get("/", async function (req, res, next) {
   try {
@@ -71,7 +71,7 @@ router.post("/", CreateCustomerRequestValidator, async function (req, res, next)
   }
   catch (e) {
     if (e.name === "SequelizeUniqueConstraintError") {
-      res.status(409).json({ error: duplicatedEntry });
+      res.status(409).json({ error: duplicatedEntryMessage });
     }
     else {
       res.status(500).end();
@@ -96,7 +96,7 @@ router.put("/:id", idValidator, CustomerValidator, async function (req, res, nex
   }
   catch (e) {
     if (e.name === "SequelizeUniqueConstraintError") {
-      res.status(409).json({ error: duplicatedEntry });
+      res.status(409).json({ error: duplicatedEntryMessage });
     }
     else {
       res.status(500).end();
