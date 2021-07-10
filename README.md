@@ -1,4 +1,4 @@
-# Sequelize Associations
+# Sequelize and Express
 
 > A simple backend application that shows the basics of ```Express + Sequelize```.
 
@@ -6,6 +6,7 @@
 
 - Migrations;
 - Model definition;
+- Associations;
 - CRUD operations;
 - Route definition;
 - Usage of middlewares, etc.
