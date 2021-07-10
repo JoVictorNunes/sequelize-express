@@ -13,7 +13,7 @@
 
 # How to install
 
-**First** you need to install MySQL and create a database. Then, open the ```database/config/config.json``` file and set the ``database`` property under ``development`` as the database's name you have created, as well as your login ``username`` and ``password``.
+**First** you need to install MySQL and create a database. Then, open the *database/config/config.json* file and set the **database** property under **development** as the database's name you have created, as well as your login **username** and **password**.
 
 1. 
    * Run ```git clone https://github.com/JoVictorNunes/sequelize-express.git``` or
