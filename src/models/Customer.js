@@ -45,9 +45,6 @@ module.exports = (sequelize, DataTypes) => {
             msg: "Comprimento de string não permitido!",
             args: [2, 20]
           },
-          isAlphanumeric: {
-            msg: "O nome não é válido!"
-          },
 
           // custom validation
           isObscene(value) {

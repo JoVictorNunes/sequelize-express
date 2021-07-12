@@ -41,10 +41,10 @@ router.get("/:id", idValidator, async function (req, res, next) {
 // OK:
 router.post("/", CreateCustomerRequestValidator, async function (req, res, next) {
   try {
-    const { nome, cpf, telefones, carros } = req.body.customer;
+    const { customer, telefones, carros } = req.body;
 
     const createdUser = await sequelize.transaction(async (transaction) => {
-      const user = await Customer.create({ nome, cpf }, { transaction });
+      const user = await Customer.create(customer, { transaction });
 
       if (telefones) {
         for (let telefone of telefones) {
@@ -80,16 +80,14 @@ router.post("/", CreateCustomerRequestValidator, async function (req, res, next)
 });
 
 // OK:
-router.put("/:id", idValidator, CustomerValidator, async function (req, res, next) {
-  const { customerData } = req.body;
-  
+router.put("/:id", idValidator, CustomerValidator, async function (req, res, next) {  
   try {
     const customer = await Customer.findOne({
       where: { id: req.params.id }
     });
 
     if (customer) {
-      const updatedCustomer = await customer.update(customerData);
+      const updatedCustomer = await customer.update(req.body);
       res.status(200).location(`${req.baseUrl}/${updatedCustomer.id}`).end();
     }
     else {
