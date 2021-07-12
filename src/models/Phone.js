@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
 
+  function formatPhone(rawValue) {
+    return `(${rawValue.substring(0, 2)}) ${rawValue.substring(2, 7)}-${rawValue.substring(7, 11)}`
+  }
+
   Phone.init(
     {
       // primary key
@@ -37,10 +41,13 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         allowNull: false,
 
+        get() {
+          const rawValue = this.getDataValue("numero");
+          return formatPhone(rawValue);
+        },
+
         set(rawValue) {
           const value = rawValue
-            .trim()
-            .toLowerCase()
             .replaceAll("(", "")
             .replaceAll(")", "")
             .replaceAll(" ", "")
@@ -50,26 +57,19 @@ module.exports = (sequelize, DataTypes) => {
         },
 
         validate: {
-          isNumeric: true,
-          notNull: {
-            msg: "O número é necessário.",
-          },
-          notEmpty: {
-            msg: "O número é necessário.",
-          },
+          is: /^[0-9]{11}$/,
         },
       },
       tipo: {
         type: DataTypes.ENUM("tel", "cel", "com"),
 
         set(rawValue) {
-          const value = rawValue.trim().toLowerCase();
+          const value = rawValue.toLowerCase();
           this.setDataValue("tipo", value);
         },
 
         validate: {
-          isIn: [["tel", "cel", "com"]],
-          isAlpha: true,
+          isIn: [["tel", "cel", "com"]]
         },
       },
     },

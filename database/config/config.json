@@ -5,6 +5,7 @@
     "database": "jbm",
     "host": "127.0.0.1",
     "dialect": "mysql",
+    "timezone": "-03:00",
     "define": {
       "freezeTableName": true
     }
@@ -15,6 +16,7 @@
     "database": "jbm_test",
     "host": "127.0.0.1",
     "dialect": "mysql",
+    "timezone": "-03:00",
     "define": {
       "freezeTableName": true
     }
@@ -25,6 +27,7 @@
     "database": "jbm_production",
     "host": "127.0.0.1",
     "dialect": "mysql",
+    "timezone": "-03:00",
     "define": {
       "freezeTableName": true
     }

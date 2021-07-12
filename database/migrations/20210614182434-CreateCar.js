@@ -25,7 +25,7 @@ module.exports = {
         allowNull: false,
       },
       placa: {
-        type: Sequelize.STRING(7),
+        type: Sequelize.CHAR(7),
         unique: true,
         allowNull: false,
       },

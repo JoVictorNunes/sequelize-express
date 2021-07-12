@@ -8,6 +8,7 @@ const { CreateCustomerRequestValidator, CustomerValidator } = require("../middle
 const { idValidator } = require("../../../shared/middlewares");
 const { duplicatedEntryMessage } = require("../../../../util/errorMessages");
 
+// OK:
 router.get("/", async function (req, res, next) {
   try {
     const customers = await Customer.findAll();
@@ -18,6 +19,7 @@ router.get("/", async function (req, res, next) {
   }
 });
 
+// OK:
 router.get("/:id", idValidator, async function (req, res, next) {
   try {
     const customer = await Customer.findOne({
@@ -36,15 +38,13 @@ router.get("/:id", idValidator, async function (req, res, next) {
   }
 });
 
+// OK:
 router.post("/", CreateCustomerRequestValidator, async function (req, res, next) {
   try {
     const { nome, cpf, telefones, carros } = req.body.customer;
 
     const createdUser = await sequelize.transaction(async (transaction) => {
-      const user = await Customer.create({
-        nome,
-        cpf,
-      }, { transaction });
+      const user = await Customer.create({ nome, cpf }, { transaction });
 
       if (telefones) {
         for (let telefone of telefones) {
@@ -79,20 +79,22 @@ router.post("/", CreateCustomerRequestValidator, async function (req, res, next)
   }
 });
 
+// OK:
 router.put("/:id", idValidator, CustomerValidator, async function (req, res, next) {
+  const { customerData } = req.body;
+  
   try {
     const customer = await Customer.findOne({
       where: { id: req.params.id }
     });
 
     if (customer) {
-      const updatedCustomer = await customer.update(req.body.customer);
+      const updatedCustomer = await customer.update(customerData);
       res.status(200).location(`${req.baseUrl}/${updatedCustomer.id}`).end();
     }
     else {
       res.status(404).json({ error: "Customer does not exist." });
     }
-    
   }
   catch (e) {
     if (e.name === "SequelizeUniqueConstraintError") {

@@ -36,22 +36,17 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(20),
         allowNull: false,
 
-        get() {
-          const rawValue = this.getDataValue("nome");
-          // TODO:
-          return rawValue;
-        },
-
         set(value) {
-          this.setDataValue("nome", value.trim().toLowerCase());
+          this.setDataValue("nome", value.trim().toUpperCase());
         },
 
         validate: {
-          notEmpty: {
-            msg: "O nome é realmente necessário!",
+          len: {
+            msg: "Comprimento de string não permitido!",
+            args: [2, 20]
           },
-          notNull: {
-            msg: "O nome é realmente necessário!",
+          isAlphanumeric: {
+            msg: "O nome não é válido!"
           },
 
           // custom validation
@@ -77,11 +72,7 @@ module.exports = (sequelize, DataTypes) => {
         },
 
         validate: {
-          isNumeric: true,
-          notEmpty: {
-            msg: "Strings vazias não são permitidas",
-          },
-          len: [11, 11],
+          is: /^[0-9]{11}$/,
         },
       },
       header: {

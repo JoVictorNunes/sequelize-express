@@ -8,6 +8,7 @@ const { idValidator } = require("../../../shared/middlewares");
 const { CreateCarRequestValidator } = require("../middlewares");
 const { duplicatedEntryMessage } = require("../../../../util/errorMessages");
 
+// OK:
 router.get("/", async function (req, res, next) {
   try {
     const cars = await Car.findAll({
@@ -21,6 +22,7 @@ router.get("/", async function (req, res, next) {
   }
 });
 
+// OK:
 router.get("/:id", idValidator, async function (req, res, next) {
   try {
     const car = await Car.findOne({
@@ -40,11 +42,14 @@ router.get("/:id", idValidator, async function (req, res, next) {
   }
 });
 
+// OK:
 router.post("/", CreateCarRequestValidator, async function (req, res, next) {
+  const { idCustomer: fk_id_customer, carro} = req.body;
+
   try {
     const createdCar = await Car.create({
-      ...req.body.car,
-      fk_id_customer: req.body.idCustomer
+      ...carro,
+      fk_id_customer
     });
   
     res.status(201).location(`${req.baseUrl}/${createdCar.id}`).end();
@@ -59,6 +64,7 @@ router.post("/", CreateCarRequestValidator, async function (req, res, next) {
   }
 });
 
+// OK:
 router.delete("/:id", idValidator, async function (req, res, next) {
  try {
   await Car.destroy({

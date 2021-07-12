@@ -13,7 +13,7 @@ module.exports = {
         allowNull: false,
       },
       cpf: {
-        type: Sequelize.STRING(14),
+        type: Sequelize.STRING(11),
         unique: true,
       },
       createdAt: {

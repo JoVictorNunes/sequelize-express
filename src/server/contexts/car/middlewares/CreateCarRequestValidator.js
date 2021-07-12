@@ -1,8 +1,9 @@
 const joi = require("joi");
 const ValidateCar = require("../shared/ValidateCar");
 
-const ValidateCreateCar = ValidateCar.keys({
-  idCustomer: joi.string().required().uuid({ version: "uuidv4" })
+const ValidateCreateCar = joi.object({
+  idCustomer: joi.string().required().uuid({ version: "uuidv4" }),
+  carro: ValidateCar
 });
 
 module.exports = (req, res, next) => {

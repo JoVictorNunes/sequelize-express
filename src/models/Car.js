@@ -40,17 +40,12 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
 
         set(rawValue) {
-          const value = rawValue.trim().toLowerCase();
+          const value = rawValue.trim().toUpperCase();
           this.setDataValue("fabricante", value);
         },
 
         validate: {
-          notNull: {
-            msg: "O fabricante deve ser fornecido!",
-          },
-          notEmpty: {
-            msg: "O fabricante deve ser fornecido!",
-          },
+          is: /^[A-Z0-9-]{2,20}$/,
         },
       },
 
@@ -59,45 +54,27 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
 
         set(rawValue) {
-          const value = rawValue.trim().toLowerCase();
+          const value = rawValue.trim().toUpperCase();
           this.setDataValue("modelo", value);
         },
 
         validate: {
-          notNull: {
-            msg: "O modelo deve ser fornecido!",
-          },
-          notEmpty: {
-            msg: "O modelo deve ser fornecido!",
-          },
+          is: /^[A-Z0-9-]{2,20}$/,
         },
       },
 
       placa: {
-        type: DataTypes.STRING(7),
+        type: DataTypes.CHAR(7),
         unique: true,
         allowNull: false,
 
         set(rawValue) {
-          const value = rawValue
-            .trim()
-            .toUpperCase()
-            .replaceAll(".", "")
-            .replaceAll(" ", "")
-            .replaceAll("-", "");
-
+          const value = rawValue.toUpperCase();
           this.setDataValue("placa", value);
         },
 
         validate: {
-          isAlphanumeric: true,
-          notNull: {
-            msg: "A placa deve ser fornecida!",
-          },
-          notEmpty: {
-            msg: "A placa deve ser fornecida!",
-          },
-          len: [7, 7],
+          is: /^[A-Z]{3}[0-9]{4}$/
         },
       },
 
@@ -105,16 +82,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.CHAR(4),
 
         set(rawValue) {
-          const value = rawValue.replaceAll(" ", "");
-          this.setDataValue("ano_lancamento", value);
+          this.setDataValue("ano_lancamento", String(rawValue));
         },
 
         validadate: {
-          isNumeric: true,
-          notEmpty: {
-            msg: "Strings vazias não são permitidas!",
-          },
-          len: [4, 4],
+          is: /^[0-9]{4}$/,
         },
       },
     },
