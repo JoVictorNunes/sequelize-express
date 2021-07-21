@@ -6,7 +6,8 @@ const { Customer, Phone, Car } = sequelize.models;
 
 const { CreateCustomerRequestValidator, CustomerValidator } = require("../middlewares");
 const { idValidator } = require("../../../shared/middlewares");
-const { duplicatedEntryMessage } = require("../../../../util/errorMessages");
+
+const NotFoundResource = require("../../../../util/errors/NotFoundResource");
 
 // OK:
 router.get("/", async function (req, res, next) {
@@ -15,7 +16,7 @@ router.get("/", async function (req, res, next) {
     res.status(200).json({ customers });
   }
   catch (e) {
-    res.status(500).end();
+    next(e);
   }
 });
 
@@ -30,11 +31,13 @@ router.get("/:id", idValidator, async function (req, res, next) {
       res.status(200).json({ customer });
     }
     else {
-      res.status(400).json({ error: "Customer does not exist." });
+      Promise
+        .reject(new NotFoundResource("Customer does not exist!"))
+        .catch(next);
     }
   }
   catch (e) {
-    res.status(500).end();
+    next(e);
   }
 });
 
@@ -70,12 +73,7 @@ router.post("/", CreateCustomerRequestValidator, async function (req, res, next)
     res.status(201).location(`${req.baseUrl}/${createdUser.id}`).end();
   }
   catch (e) {
-    if (e.name === "SequelizeUniqueConstraintError") {
-      res.status(409).json({ error: duplicatedEntryMessage });
-    }
-    else {
-      res.status(500).end();
-    }
+    next(e);
   }
 });
 
@@ -91,16 +89,13 @@ router.put("/:id", idValidator, CustomerValidator, async function (req, res, nex
       res.status(200).location(`${req.baseUrl}/${updatedCustomer.id}`).end();
     }
     else {
-      res.status(404).json({ error: "Customer does not exist." });
+      Promise
+        .reject(new NotFoundResource("Customer does not exist!"))
+        .catch(next);
     }
   }
   catch (e) {
-    if (e.name === "SequelizeUniqueConstraintError") {
-      res.status(409).json({ error: duplicatedEntryMessage });
-    }
-    else {
-      res.status(500).end();
-    }
+    next(e);
   }
 });
 
@@ -113,7 +108,7 @@ router.delete("/:id", idValidator, async function (req, res, next) {
     res.status(200).end();
   }
   catch (e) {
-    res.status(500).end();
+    next(e);
   }
 });
 

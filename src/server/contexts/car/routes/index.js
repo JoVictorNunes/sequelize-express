@@ -18,7 +18,7 @@ router.get("/", async function (req, res, next) {
     res.json({ cars });
   }
   catch (e) {
-    res.status(500).end();
+    next(e);
   }
 });
 
@@ -34,11 +34,13 @@ router.get("/:id", idValidator, async function (req, res, next) {
       res.status(200).json({ car });
     }
     else {
-      res.status(400).json({ error: "Car does not exist." });
+      Promise
+        .reject(new NotFoundResource("Car does not exist!"))
+        .catch(next);
     }
   }
   catch (e) {
-    res.status(500).end();
+    next(e);
   }
 });
 
@@ -55,27 +57,22 @@ router.post("/", CreateCarRequestValidator, async function (req, res, next) {
     res.status(201).location(`${req.baseUrl}/${createdCar.id}`).end();
   }
   catch (e) {
-    if (e.name === "SequelizeUniqueConstraintError") {
-      res.status(409).json({ error: duplicatedEntryMessage });
-    }
-    else {
-      res.status(500).end();
-    }
+    next(e);
   }
 });
 
 // OK:
 router.delete("/:id", idValidator, async function (req, res, next) {
- try {
-  await Car.destroy({
-    where: { id: req.params.id }
-  });
+  try {
+    await Car.destroy({
+      where: { id: req.params.id }
+    });
 
-  res.status(200).end();
- }
- catch (e) {
-   res.status(500).end();
- }
+    res.status(200).end();
+  }
+  catch (e) {
+    next(e);
+  }
 });
 
 module.exports = router;
