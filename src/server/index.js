@@ -20,11 +20,13 @@ app.use(function (err, req, res, next) {
     return next(err);
   }
 
-  if (err.name === "NotFoundResource") {
-    res.status(404).json({ error: err.message });
+  console.log(err)
+
+  if (err.name === "SequelizeUniqueConstraintError") {
+    res.status(409).json({ status: duplicatedEntry });
   }
-  else if (err.name === "SequelizeUniqueConstraintError") {
-    res.status(409).json({ error: duplicatedEntry });
+  else if (err instanceof Error) {
+    res.status(400).json({ status: err.message })
   }
   else {
     res.status(500).end();
