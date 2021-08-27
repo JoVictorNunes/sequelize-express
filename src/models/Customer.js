@@ -18,7 +18,10 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   function formatCPF(cpf) {
-    return `${cpf.substring(0, 3)}.${cpf.substring(3, 6)}.${cpf.substring(6, 9)}-${cpf.substring(9, 12)}`;
+    return `${cpf.substring(0, 3)}.${cpf.substring(3, 6)}.${cpf.substring(
+      6,
+      9
+    )}-${cpf.substring(9, 12)}`;
   }
 
   Customer.init(
@@ -43,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           len: {
             msg: "Comprimento de string não permitido!",
-            args: [2, 20]
+            args: [2, 20],
           },
 
           // custom validation

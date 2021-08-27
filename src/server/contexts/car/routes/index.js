@@ -12,12 +12,18 @@ const { duplicatedEntryMessage } = require("../../../../util/errorMessages");
 router.get("/", async function (req, res, next) {
   try {
     const cars = await Car.findAll({
-      attributes: ["id", ["fk_id_customer", "idCustomer"], "fabricante", "modelo", "placa", "ano_lancamento"]
+      attributes: [
+        "id",
+        ["fk_id_customer", "idCustomer"],
+        "fabricante",
+        "modelo",
+        "placa",
+        "ano_lancamento",
+      ],
     });
-    
+
     res.json({ cars });
-  }
-  catch (e) {
+  } catch (e) {
     next(e);
   }
 });
@@ -27,36 +33,38 @@ router.get("/:id", idValidator, async function (req, res, next) {
   try {
     const car = await Car.findOne({
       where: { id: req.params.id },
-      attributes: ["id", ["fk_id_customer", "idCustomer"], "fabricante", "modelo", "placa", "ano_lancamento"]
+      attributes: [
+        "id",
+        ["fk_id_customer", "idCustomer"],
+        "fabricante",
+        "modelo",
+        "placa",
+        "ano_lancamento",
+      ],
     });
 
     if (car) {
       res.status(200).json({ car });
+    } else {
+      Promise.reject(new NotFoundResource("Car does not exist!")).catch(next);
     }
-    else {
-      Promise
-        .reject(new NotFoundResource("Car does not exist!"))
-        .catch(next);
-    }
-  }
-  catch (e) {
+  } catch (e) {
     next(e);
   }
 });
 
 // OK:
 router.post("/", CreateCarRequestValidator, async function (req, res, next) {
-  const { idCustomer: fk_id_customer, carro} = req.body;
+  const { idCustomer: fk_id_customer, carro } = req.body;
 
   try {
     const createdCar = await Car.create({
       ...carro,
-      fk_id_customer
+      fk_id_customer,
     });
-  
+
     res.status(201).location(`${req.baseUrl}/${createdCar.id}`).end();
-  }
-  catch (e) {
+  } catch (e) {
     next(e);
   }
 });
@@ -65,12 +73,11 @@ router.post("/", CreateCarRequestValidator, async function (req, res, next) {
 router.delete("/:id", idValidator, async function (req, res, next) {
   try {
     await Car.destroy({
-      where: { id: req.params.id }
+      where: { id: req.params.id },
     });
 
     res.status(200).end();
-  }
-  catch (e) {
+  } catch (e) {
     next(e);
   }
 });

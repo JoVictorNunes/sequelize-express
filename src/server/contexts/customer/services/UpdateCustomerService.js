@@ -1,20 +1,23 @@
 class UpdateCustomerService {
-  #CustomerRepository
+  #CustomerRepository;
 
   constructor(CustomerRepository) {
-    this.#CustomerRepository = CustomerRepository
+    this.#CustomerRepository = CustomerRepository;
   }
 
   async exec(id, customerData) {
-    const customerExists = await this.#CustomerRepository.exists(id)
+    const customerExists = await this.#CustomerRepository.exists(id);
 
     if (!customerExists) {
-      throw new Error('Customer does not exist!')
+      throw new Error("Customer does not exist!");
     }
 
-    const updatedCustomer = await this.#CustomerRepository.update(id, customerData)
-    return updatedCustomer
+    const updatedCustomer = await this.#CustomerRepository.update(
+      id,
+      customerData
+    );
+    return updatedCustomer;
   }
 }
 
-module.exports = { UpdateCustomerService }
+module.exports = { UpdateCustomerService };

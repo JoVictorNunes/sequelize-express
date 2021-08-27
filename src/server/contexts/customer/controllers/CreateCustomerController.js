@@ -1,27 +1,34 @@
-const { CustomerRepository } = require('../repository/CustomerRepository')
-const { CreateCustomerService } = require('../services/CreateCustomerService')
+const { CustomerRepository } = require("../repository/CustomerRepository");
+const { CreateCustomerService } = require("../services/CreateCustomerService");
 const { sequelize } = require("../../../../models");
 
 class CreateCustomerController {
-  #CreateCustomerService
+  #CreateCustomerService;
 
   constructor(CreateCustomerService) {
-    this.#CreateCustomerService = CreateCustomerService
+    this.#CreateCustomerService = CreateCustomerService;
   }
 
   static init() {
-    const repository = new CustomerRepository()
-    const service = new CreateCustomerService(repository)
-    const controller = new CreateCustomerController(service)
-    
-    return controller
+    const repository = new CustomerRepository();
+    const service = new CreateCustomerService(repository);
+    const controller = new CreateCustomerController(service);
+
+    return controller;
   }
 
   async handler(request, response) {
-    const { customer: { nome, cpf }, telefones, carros } = request.body
+    const {
+      customer: { nome, cpf },
+      telefones,
+      carros,
+    } = request.body;
 
     const createdCustomer = await sequelize.transaction(async (transaction) => {
-      const customer = await this.#CreateCustomerService.exec({ nome, cpf }, transaction);
+      const customer = await this.#CreateCustomerService.exec(
+        { nome, cpf },
+        transaction
+      );
 
       // TODO: implementar cadastro de telefones e carros
 
@@ -46,8 +53,11 @@ class CreateCustomerController {
       return customer;
     });
 
-    return response.status(201).location(`${request.baseUrl}/${createdCustomer.id}`).end();
+    return response
+      .status(201)
+      .location(`${request.baseUrl}/${createdCustomer.id}`)
+      .end();
   }
 }
 
-module.exports = { CreateCustomerController }
+module.exports = { CreateCustomerController };

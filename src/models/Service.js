@@ -51,8 +51,8 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           len: {
             msg: "Comprimento de string não permitido!",
-            args: [1, 150]
-          }
+            args: [1, 150],
+          },
         },
       },
       valor: {
@@ -69,7 +69,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
 
         validate: {
-          isIn: [["Em Espera", "Em Andamento", "Concluído"]]
+          isIn: [["Em Espera", "Em Andamento", "Concluído"]],
         },
       },
     },

@@ -1,19 +1,19 @@
 class DeleteCustomerService {
-  #CustomerRepository
+  #CustomerRepository;
 
   constructor(CustomerRepository) {
-    this.#CustomerRepository = CustomerRepository
+    this.#CustomerRepository = CustomerRepository;
   }
 
   async exec(id) {
-    const customerExists = await this.#CustomerRepository.exists(id)
+    const customerExists = await this.#CustomerRepository.exists(id);
 
     if (!customerExists) {
-      throw new Error('Customer does not exist!')
+      throw new Error("Customer does not exist!");
     }
 
-    await this.#CustomerRepository.delete(id)
+    await this.#CustomerRepository.delete(id);
   }
 }
 
-module.exports = { DeleteCustomerService }
+module.exports = { DeleteCustomerService };

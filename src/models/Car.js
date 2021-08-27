@@ -74,7 +74,7 @@ module.exports = (sequelize, DataTypes) => {
         },
 
         validate: {
-          is: /^[A-Z]{3}[0-9]{4}$/
+          is: /^[A-Z]{3}[0-9]{4}$/,
         },
       },
 

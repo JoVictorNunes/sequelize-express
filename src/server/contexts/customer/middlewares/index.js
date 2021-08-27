@@ -3,5 +3,5 @@ const CustomerValidator = require("./CustomerValidator");
 
 module.exports = {
   CreateCustomerRequestValidator,
-  CustomerValidator
-}
+  CustomerValidator,
+};
