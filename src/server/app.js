@@ -18,7 +18,7 @@ app.use(function (err, req, res, next) {
   }
 
   if (err.name === "SequelizeUniqueConstraintError") {
-    res.status(409).json({ status: duplicatedEntry });
+    res.status(409).json({ status: 'Duplicated data not allowed!' });
   }
   else if (err instanceof Error) {
     res.status(400).json({ status: err.message })
