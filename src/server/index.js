@@ -1,42 +1,4 @@
-const express = require("express");
-const app = express();
 const port = process.env.PORT || 5000;
+const app = require('./app')
 
-const customerRouter = require("./contexts/customer/routes");
-const carRouter = require("./contexts/car/routes");
-
-const { duplicatedEntry } = require("../util/errorMessages");
-
-const { sequelize } = require("../models");
-
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
-app.use("/customer", customerRouter);
-app.use("/car", carRouter);
-
-app.use(function (err, req, res, next) {
-  if (res.headersSent) {
-    return next(err);
-  }
-
-  console.log(err)
-
-  if (err.name === "SequelizeUniqueConstraintError") {
-    res.status(409).json({ status: duplicatedEntry });
-  }
-  else if (err instanceof Error) {
-    res.status(400).json({ status: err.message })
-  }
-  else {
-    res.status(500).end();
-  }
-});
-
-(async function () {
-  await sequelize.authenticate();
-
-  app.listen(port, () => {
-    console.log(`Servidor executando na porta ${port}`);
-  });
-})();
+app.listen(port, () => `Server running on localhost:${port}`)

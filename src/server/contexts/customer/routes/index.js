@@ -34,8 +34,13 @@ router.get("/:id", idValidator, async function (req, res, next) {
 });
 
 // OK:
-router.post("/", CreateCustomerRequestValidator, function (req, res, next) {
-  createCustomerController.handler(req, res)
+router.post("/", CreateCustomerRequestValidator, async function (req, res, next) {
+  try {
+    await createCustomerController.handler(req, res)
+  }
+  catch (e) {
+    next(e);
+  }
 });
 
 // OK:
