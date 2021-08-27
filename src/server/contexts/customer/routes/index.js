@@ -19,47 +19,27 @@ const { CreateCustomerRequestValidator, CustomerValidator } = require("../middle
 const { idValidator } = require("../../../shared/middlewares");
 
 // OK:
-router.get("/", function (req, res, next) {
-  getAllCustomersController.handler(req, res)
+router.get("/", async function (req, res, next) {
+  getAllCustomersController.handler(req, res).catch(next)
 });
 
 // OK:
 router.get("/:id", idValidator, async function (req, res, next) {
-  try {
-    await getCustomerController.handler(req, res)
-  }
-  catch (e) {
-    next(e)
-  }
+  getCustomerController.handler(req, res).catch(next)
 });
 
 // OK:
 router.post("/", CreateCustomerRequestValidator, async function (req, res, next) {
-  try {
-    await createCustomerController.handler(req, res)
-  }
-  catch (e) {
-    next(e);
-  }
+  createCustomerController.handler(req, res).catch(next)
 });
 
 // OK:
 router.put("/:id", idValidator, CustomerValidator, async function (req, res, next) {  
-  try {
-    await updateCustomerController.handler(req, res)
-  }
-  catch (e) {
-    next(e);
-  }
+  updateCustomerController.handler(req, res).catch(next)
 });
 
 router.delete("/:id", idValidator, async function (req, res, next) {
-  try {
-    await deleteCustomerController.handler(req, res)
-  }
-  catch (e) {
-    next(e);
-  }
+  deleteCustomerController.handler(req, res).catch(next)
 });
 
 module.exports = router;
