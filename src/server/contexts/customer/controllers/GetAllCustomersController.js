@@ -1,7 +1,5 @@
 const { CustomerRepository } = require("../repository/CustomerRepository");
-const {
-  GetAllCustomersService,
-} = require("../services/GetAllCustomersService");
+const { GetAllCustomersService } = require("../services/GetAllCustomersService");
 
 class GetAllCustomersController {
   #GetAllCustomersService;

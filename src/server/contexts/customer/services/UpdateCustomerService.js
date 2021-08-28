@@ -12,10 +12,7 @@ class UpdateCustomerService {
       throw new Error("Customer does not exist!");
     }
 
-    const updatedCustomer = await this.#CustomerRepository.update(
-      id,
-      customerData
-    );
+    const updatedCustomer = await this.#CustomerRepository.update(id, customerData);
     return updatedCustomer;
   }
 }

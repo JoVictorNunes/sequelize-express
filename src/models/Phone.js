@@ -12,10 +12,7 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   function formatPhone(rawValue) {
-    return `(${rawValue.substring(0, 2)}) ${rawValue.substring(
-      2,
-      7
-    )}-${rawValue.substring(7, 11)}`;
+    return `(${rawValue.substring(0, 2)}) ${rawValue.substring(2, 7)}-${rawValue.substring(7, 11)}`;
   }
 
   Phone.init(

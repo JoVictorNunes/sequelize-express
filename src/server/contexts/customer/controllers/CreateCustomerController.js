@@ -25,10 +25,7 @@ class CreateCustomerController {
     } = request.body;
 
     const createdCustomer = await sequelize.transaction(async (transaction) => {
-      const customer = await this.#CreateCustomerService.exec(
-        { nome, cpf },
-        transaction
-      );
+      const customer = await this.#CreateCustomerService.exec({ nome, cpf }, transaction);
 
       // TODO: implementar cadastro de telefones e carros
 
@@ -53,10 +50,7 @@ class CreateCustomerController {
       return customer;
     });
 
-    return response
-      .status(201)
-      .location(`${request.baseUrl}/${createdCustomer.id}`)
-      .end();
+    return response.status(201).location(`${request.baseUrl}/${createdCustomer.id}`).end();
   }
 }
 
