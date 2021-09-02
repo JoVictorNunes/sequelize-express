@@ -5,8 +5,8 @@ const ValidatePhone = require("../../phone/ValidatePhone");
 
 const validateCreateCustomer = joi.object({
   customer: validateCustomer,
-  telefones: joi.array().items(ValidatePhone),
-  carros: joi.array().items(ValidateCar),
+  phones: joi.array().items(ValidatePhone),
+  cars: joi.array().items(ValidateCar),
 });
 
 module.exports = (req, res, next) => {
@@ -15,8 +15,11 @@ module.exports = (req, res, next) => {
   });
 
   if (error) {
-    res.status(400).json({ error });
-    next(error);
+    Promise.resolve()
+      .then(() => {
+        throw new Error(error.annotate());
+      })
+      .catch(next);
   } else {
     next();
   }

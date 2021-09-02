@@ -2,7 +2,7 @@ const NodeEnv = require('jest-environment-node')
 const { execSync } = require('child_process')
 const { createConnection } = require('mysql2')
 
-const sequelizeCLI = '.\\node_modules\\.bin\\sequelize-cli'
+const sequelizeCLI = 'npx sequelize-cli'
 
 class TestEnvironment extends NodeEnv {
   constructor(config, context) {

@@ -1,5 +1,3 @@
-const { CustomerRepository } = require("../repository/CustomerRepository");
-const { CreateCustomerService } = require("../services/CreateCustomerService");
 const { sequelize } = require("../../../../models");
 
 class CreateCustomerController {
@@ -9,23 +7,15 @@ class CreateCustomerController {
     this.#CreateCustomerService = CreateCustomerService;
   }
 
-  static init() {
-    const repository = new CustomerRepository();
-    const service = new CreateCustomerService(repository);
-    const controller = new CreateCustomerController(service);
-
-    return controller;
-  }
-
   async handler(request, response) {
     const {
-      customer: { nome, cpf },
-      telefones,
-      carros,
+      customer: { name, cpf },
+      phones,
+      cars,
     } = request.body;
 
     const createdCustomer = await sequelize.transaction(async (transaction) => {
-      const customer = await this.#CreateCustomerService.exec({ nome, cpf }, transaction);
+      const customer = await this.#CreateCustomerService.exec({ name, cpf }, transaction);
 
       // TODO: implementar cadastro de telefones e carros
 

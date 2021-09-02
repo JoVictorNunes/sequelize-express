@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         allowNull: false,
       },
-      nome: {
+      name: {
         type: Sequelize.STRING(20),
         allowNull: false,
       },

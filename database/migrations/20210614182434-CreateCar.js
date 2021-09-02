@@ -16,20 +16,20 @@ module.exports = {
           key: "id",
         },
       },
-      fabricante: {
+      brand: {
         type: Sequelize.STRING(20),
         allowNull: false,
       },
-      modelo: {
+      model: {
         type: Sequelize.STRING(20),
         allowNull: false,
       },
-      placa: {
+      license: {
         type: Sequelize.CHAR(7),
         unique: true,
         allowNull: false,
       },
-      ano_lancamento: {
+      year: {
         type: Sequelize.CHAR(4),
         allowNull: false,
       },

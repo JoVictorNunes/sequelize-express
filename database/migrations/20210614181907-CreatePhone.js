@@ -16,12 +16,12 @@ module.exports = {
           key: "id",
         },
       },
-      numero: {
+      number: {
         type: Sequelize.STRING(11),
         unique: true,
         allowNull: false,
       },
-      tipo: {
+      kind: {
         type: Sequelize.ENUM("tel", "cel", "com"),
       },
       createdAt: {

@@ -5,10 +5,10 @@ class CreateCustomerService {
     this.#CustomerRepository = CustomerRepository;
   }
 
-  async exec({ nome, cpf }, transaction) {
+  async exec({ name, cpf }, transaction) {
     // TODO: verificar se o cliente já existe
 
-    const user = await this.#CustomerRepository.create({ nome, cpf }, transaction);
+    const user = await this.#CustomerRepository.create({ name, cpf }, transaction);
     return user;
   }
 }

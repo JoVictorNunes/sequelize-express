@@ -1,19 +1,13 @@
 const { Router } = require("express");
 const router = Router();
 
-// -> controllers
-const { CreateCustomerController } = require("../controllers/CreateCustomerController");
-const { GetAllCustomersController } = require("../controllers/GetAllCustomersController");
-const { GetCustomerController } = require("../controllers/GetCustomerController");
-const { UpdateCustomerController } = require("../controllers/UpdateCustomerController");
-const { DeleteCustomerController } = require("../controllers/DeleteCustomerController");
-
-// -> controllers' instances
-const createCustomerController = CreateCustomerController.init();
-const getAllCustomersController = GetAllCustomersController.init();
-const getCustomerController = GetCustomerController.init();
-const updateCustomerController = UpdateCustomerController.init();
-const deleteCustomerController = DeleteCustomerController.init();
+const {
+  createCustomerController,
+  getCustomerController,
+  getAllCustomersController,
+  updateCustomerController,
+  deleteCustomerController,
+} = require("../controllers/Factory");
 
 const { CreateCustomerRequestValidator, CustomerValidator } = require("../middlewares");
 const { idValidator } = require("../../../shared/middlewares");

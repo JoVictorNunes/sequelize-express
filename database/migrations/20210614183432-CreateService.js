@@ -24,11 +24,11 @@ module.exports = {
           key: "id",
         },
       },
-      descricao: {
+      description: {
         type: Sequelize.STRING(150),
         allowNull: false,
       },
-      valor: {
+      amount: {
         type: Sequelize.FLOAT(7, 2),
         allowNull: false,
       },

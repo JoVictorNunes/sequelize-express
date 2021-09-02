@@ -10,8 +10,8 @@ class CustomerRepository {
     return !!customer;
   }
 
-  async create({ nome, cpf }, transaction) {
-    const customer = await Customer.create({ nome, cpf }, { transaction });
+  async create({ name, cpf }, transaction) {
+    const customer = await Customer.create({ name, cpf }, { transaction });
     return customer;
   }
 

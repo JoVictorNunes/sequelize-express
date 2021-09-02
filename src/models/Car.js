@@ -35,13 +35,13 @@ module.exports = (sequelize, DataTypes) => {
       },
 
       // business attributes
-      fabricante: {
+      brand: {
         type: DataTypes.STRING(20),
         allowNull: false,
 
         set(rawValue) {
           const value = rawValue.trim().toUpperCase();
-          this.setDataValue("fabricante", value);
+          this.setDataValue("brand", value);
         },
 
         validate: {
@@ -49,13 +49,13 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
 
-      modelo: {
+      model: {
         type: DataTypes.STRING(20),
         allowNull: false,
 
         set(rawValue) {
           const value = rawValue.trim().toUpperCase();
-          this.setDataValue("modelo", value);
+          this.setDataValue("model", value);
         },
 
         validate: {
@@ -63,14 +63,14 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
 
-      placa: {
+      license: {
         type: DataTypes.CHAR(7),
         unique: true,
         allowNull: false,
 
         set(rawValue) {
           const value = rawValue.toUpperCase();
-          this.setDataValue("placa", value);
+          this.setDataValue("license", value);
         },
 
         validate: {
@@ -78,11 +78,11 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
 
-      ano_lancamento: {
+      year: {
         type: DataTypes.CHAR(4),
 
         set(rawValue) {
-          this.setDataValue("ano_lancamento", String(rawValue));
+          this.setDataValue("year", String(rawValue));
         },
 
         validadate: {

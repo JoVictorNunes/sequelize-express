@@ -6,8 +6,8 @@ class GetAllCustomersService {
   }
 
   async exec() {
-    const user = await this.#CustomerRepository.getAll();
-    return user;
+    const users = await this.#CustomerRepository.getAll();
+    return users;
   }
 }
 

@@ -1,19 +1,8 @@
-const { CustomerRepository } = require("../repository/CustomerRepository");
-const { GetAllCustomersService } = require("../services/GetAllCustomersService");
-
 class GetAllCustomersController {
   #GetAllCustomersService;
 
   constructor(GetAllCustomersService) {
     this.#GetAllCustomersService = GetAllCustomersService;
-  }
-
-  static init() {
-    const repository = new CustomerRepository();
-    const service = new GetAllCustomersService(repository);
-    const controller = new GetAllCustomersController(service);
-
-    return controller;
   }
 
   async handler(request, response) {

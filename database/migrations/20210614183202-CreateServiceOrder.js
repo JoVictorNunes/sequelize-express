@@ -16,7 +16,7 @@ module.exports = {
           key: "id",
         },
       },
-      data_abertura: {
+      opening_date: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,
         allowNull: false,
