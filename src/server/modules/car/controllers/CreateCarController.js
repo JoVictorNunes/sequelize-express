@@ -1,5 +1,3 @@
-const { sequelize } = require("../../../../models");
-
 class CreateCarController {
   #CreateCarService;
 

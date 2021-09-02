@@ -19,24 +19,6 @@ class CreateCustomerController {
 
       // TODO: implementar cadastro de telefones e carros
 
-      // if (telefones) {
-      //   for (let telefone of telefones) {
-      //     await Phone.create({
-      //       ...telefone,
-      //       fk_id_customer: customer.id,
-      //     }, { transaction });
-      //   }
-      // }
-
-      // if (carros) {
-      //   for (let carro of carros) {
-      //     await Car.create({
-      //       ...carro,
-      //       fk_id_customer: customer.id,
-      //     }, { transaction });
-      //   }
-      // }
-
       return customer;
     });
 

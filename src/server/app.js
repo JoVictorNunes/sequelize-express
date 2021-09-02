@@ -1,8 +1,8 @@
 const express = require("express");
 const app = express();
 
-const customerRouter = require("./contexts/customer/routes");
-const carRouter = require("./contexts/car/routes");
+const customerRouter = require("./modules/customer/routes");
+const carRouter = require("./modules/car/routes");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
