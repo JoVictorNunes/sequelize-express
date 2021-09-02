@@ -1,7 +1,7 @@
 const validateCustomer = require("../shared/ValidateCustomer");
 
-module.exports = (req, res, next) => {
-  const { error } = validateCustomer.validate(req.body);
+module.exports = (request, response, next) => {
+  const { error } = validateCustomer.validate(request.body);
 
   if (error) {
     Promise.resolve()

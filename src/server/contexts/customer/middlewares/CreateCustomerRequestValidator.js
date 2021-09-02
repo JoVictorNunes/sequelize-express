@@ -9,8 +9,8 @@ const validateCreateCustomer = joi.object({
   cars: joi.array().items(ValidateCar),
 });
 
-module.exports = (req, res, next) => {
-  const { error } = validateCreateCustomer.validate(req.body, {
+module.exports = (request, response, next) => {
+  const { error } = validateCreateCustomer.validate(request.body, {
     convert: true,
   });
 

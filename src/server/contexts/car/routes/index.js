@@ -11,22 +11,18 @@ const {
   deleteCarController,
 } = require("../controllers/Factory");
 
-// OK:
 router.get("/", async function (request, response, next) {
   getAllCarsController.handler(request, response).catch(next);
 });
 
-// OK:
 router.get("/:id", idValidator, async function (request, response, next) {
   getCarController.handler(request, response).catch(next);
 });
 
-// OK:
 router.post("/", CreateCarRequestValidator, async function (request, response, next) {
   createCarController.handler(request, response).catch(next);
 });
 
-// OK:
 router.delete("/:id", idValidator, async function (request, response, next) {
   deleteCarController.handler(request, response).catch(next);
 });
